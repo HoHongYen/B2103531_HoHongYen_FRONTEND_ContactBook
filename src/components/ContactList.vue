@@ -26,3 +26,9 @@ export default {
 		</li>
 	</ul>
 </template>
+
+<style scoped>
+.list-group-item.active {
+	background-color:darkgray;
+}
+</style>

@@ -5,7 +5,7 @@
 			:contact="contact"
 			@submit:contact="createContact"
 		/>
-		<p>{{ message }}</p>
+		<p class="message">{{ message }}</p>
 	</div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 		ContactForm,
 	},
 	props: {
-		
+
 	},
 	data() {
 		return {

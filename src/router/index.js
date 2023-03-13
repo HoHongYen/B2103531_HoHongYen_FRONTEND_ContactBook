@@ -8,11 +8,6 @@ const routes = [
 		component: ContactBook,
 	},
 	{
-		path: '/:pathMatch(.*)*',
-		name: 'notfound',
-		component: () => import('@/views/NotFound.vue'),
-	},
-	{
 		path: '/contacts/:id',
 		name: 'contact.edit',
 		component: () => import('@/views/ContactEdit.vue'),
@@ -23,6 +18,16 @@ const routes = [
 		name: 'contact.add',
 		component: () => import('@/views/ContactAdd.vue'),
 		// props: true // truyền các biến trong $route.params vào làm props
+	},
+	{
+		path: '/favorite',
+		name: 'favorite',
+		component: () => import('@/views/FavoriteContact.vue'),
+	},
+	{
+		path: '/:pathMatch(.*)*',
+		name: 'notfound',
+		component: () => import('@/views/NotFound.vue'),
 	},
 ];
 

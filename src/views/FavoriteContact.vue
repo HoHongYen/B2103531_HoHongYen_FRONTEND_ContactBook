@@ -5,8 +5,8 @@
 		</div>
 		<div class="mt-3 col-md-6">
 			<h4>
-				Danh bạ
-				<i class="fas fa-address-book"></i>
+				Các danh bạ yêu thích
+				<i class="fas fa-heart"></i>
 			</h4>
 			<ContactList
 				v-if="filteredContactsCount > 0"
@@ -17,35 +17,29 @@
 
 			<div class="mt-3 row justify-content-around align-items-center">
 				<button
-					class="btn btn-sm btn-primary"
+					class="left btn btn-sm btn-primary"
 					@click="refreshList()"
 				>
-				<i class="fas fa-smile"></i> Làm mới
+					<i class="fas fa-smile"></i> Làm mới
 				</button>
 
 				<button
-					class="btn btn-sm btn-success"
+					class=" right btn btn-sm btn-success"
 					@click="goToAddContact"
 				>
 					<i class="fas fa-plus"></i> Thêm mới
 				</button>
 
-				<button
-					class="btn btn-sm btn-danger"
-					@click="removeAllContacts"
-				>
-				<i class="fas fa-exclamation"></i>&nbsp;Xóa tất cả
-				</button>
 			</div>
 			<div class="mt-3 row justify-content-around align-items-center">
 				<button
-					class="favorite-btn btn btn-sm btn-primary"
-					@click="gotoFavoriteContact"
+					class="full-width btn btn-sm btn-danger"
+					@click="removeAllFavoriteContacts"
 				>
-					<i class="fas fa-heart"></i> Các liên hệ yêu thích
+				<i class="fas fa-exclamation"></i>&nbsp;Xóa tất cả liên hệ yêu thích
 				</button>
 			</div>
-			{{ message }}
+			<p class="message">{{ message }}</p>
 		</div>
 		<div class="mt-3 col-md-6">
 			<div v-if="activeContact">
@@ -68,7 +62,6 @@
 		</div>
 	</div>
 </template>
-
 
 <script>
 import ContactCard from '@/components/ContactCard.vue';
@@ -99,7 +92,7 @@ export default {
 	},
 	computed: {
 		// Chuyển các đối tượng contact thành chuỗi để tiện cho tìm kiếm.
-		contactStrings() {
+		contactFavoriteStrings() {
 			return this.contacts.map((contact) => {
 				const { name, email, address, phone } = contact;
 				return [name, email, address, phone].join("");
@@ -109,7 +102,7 @@ export default {
 		filteredContacts() {
 			if (!this.searchText) return this.contacts;
 			return this.contacts.filter((_contact, index) =>
-				this.contactStrings[index].toLowerCase().includes(this.searchText)
+				this.contactFavoriteStrings[index].toLowerCase().includes(this.searchText)
 			);
 		},
 		activeContact() {
@@ -121,24 +114,28 @@ export default {
 		},
 	},
 	methods: {
-		async retrieveContacts() {
+		async retrieveFavoriteContacts() {
 			try {
-				this.contacts = await ContactService.getAll();
+				this.contacts = await ContactService.getAllFavorite();
 			} catch (error) {
 				console.log(error);
 			}
 		},
 
 		refreshList() {
-			this.retrieveContacts();
+			this.retrieveFavoriteContacts();
 			this.activeIndex = -1;
 		},
 
-		async removeAllContacts() {
-			if (confirm("Bạn muốn xóa tất cả liên hệ?")) {
+		async removeAllFavoriteContacts() {
+			if (confirm("Bạn muốn xóa tất cả liên hệ yêu thích?")) {
 				try {
-					await ContactService.deleteAll();
-					this.message = 'Xoá tất cả các liên hệ thành công.';
+					// await ContactService.deleteAll();
+					for (let i=0; i<this.filteredContactsCount; i++) {
+						let id = this.filteredContacts[i]._id;
+						await ContactService.delete(id);
+						this.message = 'Xoá các liên hệ yêu thích thành công.';
+					}
 					this.refreshList();
 				} catch (error) {
 					console.log(error);
@@ -149,10 +146,6 @@ export default {
 		goToAddContact() {
 			this.$router.push({ name: "contact.add" });
 		},
-		gotoFavoriteContact() {
-			this.$router.push({ name: "favorite" });
-		},
-
 	},
 	mounted() {
 		this.refreshList();
@@ -165,13 +158,19 @@ export default {
 	text-align: left;
 	max-width: 750px;
 }
-
-.favorite-btn {
-	background-color: orange;
-	width: 95%;
+.full-width {
+	width: 90%;
 }
 
-.favorite-btn:hover {
-	background-color: rgb(255, 115, 0);
+.left {
+	left: -6%;
+}
+
+.right {
+	right: -6%;
+}
+
+.fa-heart {
+	color: red;
 }
 </style>

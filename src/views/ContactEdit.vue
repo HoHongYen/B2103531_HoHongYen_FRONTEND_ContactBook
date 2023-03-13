@@ -6,7 +6,7 @@
 			@submit:contact="updateContact"
 			@delete:contact="deleteContact"
 		/>
-		<p>{{ message }}</p>
+		<p class="message">{{ message }}</p>
 	</div>
 </template>
 

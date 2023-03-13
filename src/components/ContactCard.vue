@@ -26,8 +26,17 @@ export default {
 		</div>
 		<div class="p-1">
 			<strong>Liên hệ yêu thích:&nbsp;</strong>
-			<i v-if="contact.favorite" class="fas fa-check"></i>
-			<i v-else class="fas fa-times"></i>
+			<i v-if="contact.favorite" class="fas fa-heart"></i>
+			<i v-else class="fas fa-exclamation"></i>
 		</div>
 	</div>
 </template>
+
+<style scoped>
+	.fa-heart {
+		color: red;
+	}
+	.fa-exclamation {
+		color: red;
+	}
+</style>

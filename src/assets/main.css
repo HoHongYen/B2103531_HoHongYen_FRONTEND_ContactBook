@@ -33,3 +33,9 @@ a,
     padding: 0 2rem;
   }
 }
+
+.message {
+	margin-top: 10px;
+	color:cadetblue;
+	font-style: italic;
+}
