@@ -97,9 +97,9 @@ export default {
 		// Trả về các contact có chứa thông tin cần tìm kiếm.
 		filteredContacts() {
 			if (!this.searchText) return this.contacts;
-			return this.contacts.filter((_contact, index) => {
+			return this.contacts.filter((_contact, index) =>
 				this.contactStrings[index].includes(this.searchText)
-			});
+			);
 		},
 		activeContact() {
 			if (this.activeIndex < 0) return null;
