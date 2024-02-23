@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: "/B2103531_HoHongYen_FRONTEND_ContactBook/",
+	// base: "/B2103531_HoHongYen_FRONTEND_ContactBook/",
 	plugins: [vue()],
 	resolve: {
 		alias: {
