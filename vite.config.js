@@ -8,7 +8,7 @@ export default defineConfig({
 	plugins: [vue()],
 	resolve: {
 		alias: {
-		'@': fileURLToPath(new URL('./src', import.meta.url))
+			'@': fileURLToPath(new URL('./src', import.meta.url))
 		}
 	},
 	server: {
@@ -18,6 +18,9 @@ export default defineConfig({
 				// target: "http://localhost:3000/",
 				target: "https://b2103531-ho-hong-yen-backend-contact-book.vercel.app/",
 				changeOrigin: true,
+				onProxyReq: function (request) {
+					request.setHeader("origin", "http://localhost:4000");
+				},
 			},
 		}
 	},
