@@ -19,7 +19,7 @@ export default defineConfig({
 				target: "https://b2103531-ho-hong-yen-backend-contact-book.vercel.app/",
 				changeOrigin: true,
 				onProxyReq: function (request) {
-					request.setHeader("origin", "http://localhost:4000");
+					request.setHeader("origin", "https://b2103531-ho-hong-yen-backend-contact-book.vercel.app/");
 				},
 			},
 		}
