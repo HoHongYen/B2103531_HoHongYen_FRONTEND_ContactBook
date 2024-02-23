@@ -15,7 +15,8 @@ export default defineConfig({
 		port: 3001,
 		proxy: {
 			'/api': {
-				target: "http://localhost:3000/",
+				// target: "http://localhost:3000/",
+				target: "https://b2103531-ho-hong-yen-backend-contact-book.vercel.app/",
 				changeOrigin: true,
 			},
 		}
